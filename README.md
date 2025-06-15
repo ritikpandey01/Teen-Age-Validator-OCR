@@ -1,31 +1,111 @@
-# Aadhaar OCR Age Validator
+# Aadhaar OCR Verification System
 
-This is a backend-only Python project that extracts personal information from Aadhaar card images using Tesseract OCR. It focuses on **teen verification** by extracting the **name** and **date of birth**, calculating age, and checking if the user is under 18.
+**Backend-only project** - Verifies Aadhaar card details using OCR. No frontend/UI included.
 
-⚠️ Note: This project does not include any frontend or UI. My role was focused only on the backend development and OCR logic.
+Takes an Aadhaar image and user details, then checks if they match using smart text extraction and fuzzy matching.
 
----
+## What it does
 
-## 👨‍💻 My Role
+- Reads Aadhaar card images
+- Extracts name, date of birth, and Aadhaar number using OCR
+- Matches extracted data with provided details
+- Calculates age and checks if person is a teen
+- Uses fuzzy matching for names (handles spelling variations)
 
-I developed the complete backend pipeline which:
+## Setup
 
-- Reads Aadhaar images from a folder
-- Extracts raw text using Tesseract OCR
-- Uses pattern matching (regex) to identify name and date of birth
-- Calculates the user's age
-- Verifies if the user qualifies as a teen (age < 18)
+1. **Install Tesseract OCR:**
+   - Windows: Download from [here](https://github.com/UB-Mannheim/tesseract/wiki)
+   - Mac: `brew install tesseract`
+   - Linux: `sudo apt install tesseract-ocr`
 
----
+2. **Install Python packages:**
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-## 🔧 Tech Stack
+   Or manually:
+   ```bash
+   pip install opencv-python pytesseract fuzzywuzzy python-dateutil numpy
+   ```
 
-- **Python**
-- **Tesseract OCR** (via `pytesseract`)
-- **Regex** for pattern matching
-- **Pillow** and **OpenCV** for image handling
+## Project Structure
+```
+project/
+├── backend/
+│   └── main.py         # Main verification script
+├── input/
+│   ├── input.json      # User details to verify
+│   └── x.png          # Aadhaar image
+└── requirements.txt    # Python dependencies
+```
 
----
+## Usage
 
-## 📂 Folder Structure
+1. Create your input file `input/input.json`:
+   ```json
+   {
+     "name": "John Doe",
+     "dob": "15/08/1995",
+     "aadhaar": "1234 5678 9012"
+   }
+   ```
 
+2. Put your Aadhaar image as `input/x.png`
+
+3. Run the script:
+   ```bash
+   cd backend
+   python main.py
+   ```
+
+4. Output example:
+   ```
+   Advanced Aadhaar Verification Results:
+   All details match: Yes
+   Name matches: Yes (JOHN DOE)
+   DOB matches: Yes (15-08-1995)
+   Aadhaar matches: Yes (123456789012)
+
+   Extracted Details:
+   Name: JOHN DOE
+   DOB: 15-08-1995
+   Aadhaar: 123456789012
+   Age: 28 (Not teen)
+   ```
+
+## How it works
+
+1. **Image preprocessing** - Cleans up the image for better OCR
+2. **Text extraction** - Uses Tesseract OCR with multiple techniques
+3. **Data extraction** - Finds name, DOB, and Aadhaar using regex patterns
+4. **Verification** - Matches extracted data with input using fuzzy matching
+5. **Age calculation** - Calculates current age from DOB
+
+## Tech Stack
+
+- Python
+- OpenCV (image processing)
+- Tesseract OCR (text extraction)
+- FuzzyWuzzy (string matching)
+- python-dateutil (date parsing)
+
+## My Role
+
+Built the complete backend system including:
+- OCR integration and image preprocessing
+- Data extraction logic with regex patterns
+- Fuzzy matching algorithms for verification
+- Age calculation and teen detection
+- Input validation and error handling
+
+*This is a backend-only project focusing on OCR and data verification logic.*
+
+## requirements.txt
+```
+opencv-python==4.8.1.78
+pytesseract==0.3.10
+fuzzywuzzy==0.18.0
+python-dateutil==2.8.2
+numpy==1.24.3
+```
