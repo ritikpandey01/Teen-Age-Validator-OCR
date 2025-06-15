@@ -101,11 +101,4 @@ Built the complete backend system including:
 
 *This is a backend-only project focusing on OCR and data verification logic.*
 
-## requirements.txt
-```
-opencv-python==4.8.1.78
-pytesseract==0.3.10
-fuzzywuzzy==0.18.0
-python-dateutil==2.8.2
-numpy==1.24.3
-```
+
