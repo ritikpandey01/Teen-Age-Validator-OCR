@@ -162,12 +162,12 @@ Age: 28 (Not teen)
 ## 📄 Requirements.txt
 
 ```txt
-opencv-python>=4.8.0
-pytesseract>=0.3.10
-fuzzywuzzy>=0.18.0
-python-dateutil>=2.8.2
-numpy>=1.24.0
-Pillow>=9.5.0
+opencv-python
+pytesseract
+fuzzywuzzy
+python-dateutil
+numpy
+Pillow
 ```
 
 ---
